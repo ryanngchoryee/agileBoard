@@ -1,0 +1,54 @@
+h1 {
+  width: 90vw;
+  height: 8vh;
+  padding: 1vh;
+  margin: 0;
+}
+
+button {
+  width: 4vw;
+  height: 4vh;
+  position: fixed;
+  right: 4vw;
+  top: 4vh;
+}
+
+.column {
+  width: 31.33vw;
+  min-height: 88vh;
+  max-height: 88vh;
+  padding: 0;
+  margin: 0 0 2vw 1vw;
+  background-color: white;
+  border-radius: 10px;
+  float: left;
+}
+
+h2 {
+  width: 31.33vw;
+  min-height: 6vh;
+  max-height: 6vh;
+  padding: 0;
+  margin: 1vh 0;
+  text-align: center;
+}
+
+.tasks {
+  width: 31.33vw;
+  min-height: 80vh;
+  max-height: 80vh;
+  margin: 0;
+  border-radius: 0 0 10px 10px;
+  background-color: palegreen;
+}
+
+.cards {
+  width: 27.5vw;
+  min-height: 8vh;
+  max-height: 8vh;
+  margin: 1vh 1.15vw;
+  padding: 1vh;
+  border-radius: 0px;
+  background-color: teal;
+  color: white;
+}
