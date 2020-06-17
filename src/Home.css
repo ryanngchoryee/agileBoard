@@ -40,10 +40,12 @@ button {
   margin: 0;
   padding: 0;
   list-style-type: none;
+  overflow: auto;
 }
 
 .task {
-  margin: 1vh 1vw;
+  margin: 1vh;
   padding: 1vw;
+  font-size: 4vh;
   background-color: white;
 }

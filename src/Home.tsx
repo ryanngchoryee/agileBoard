@@ -4,21 +4,16 @@ import "./Home.css";
 interface HomeProps {}
 
 interface HomeStates {
-  header: string;
-  column: Columns;
-  task: Array<Tasks>;
+  columns: Array<Column>;
 }
 
-interface Columns {
-  toDo: Array<JSX.Element>;
-  ongoing: Array<JSX.Element>;
-  completed: Array<JSX.Element>;
+interface Column {
+  title: string;
+  task: Array<Task>;
 }
 
-interface Tasks {
-  id: number;
+interface Task {
   name: string;
-  column: string;
 }
 
 export default class Home extends React.Component<HomeProps, HomeStates> {
@@ -27,73 +22,72 @@ export default class Home extends React.Component<HomeProps, HomeStates> {
   constructor(props: HomeProps) {
     super(props);
     this.state = {
-      header: "Welcome to Jira Board",
-      column: {
-        toDo: [],
-        ongoing: [],
-        completed: [],
-      },
-      task: [
-        { id: 1, name: "Test1", column: "toDo" },
-        { id: 2, name: "Test2", column: "toDo" },
-        { id: 3, name: "Test3", column: "completed" },
+      columns: [
+        { title: "To do", task: [{ name: "Test1" }] },
+        { title: "Ongoing", task: [{ name: "Test2" }] },
+        { title: "Completed", task: [{ name: "Test3" }] },
       ],
     };
   }
 
-  componentDidMount() {
-    this.setState({
-      column: {
-        toDo: this.getTask("toDo"),
-        ongoing: this.getTask("ongoing"),
-        completed: this.getTask("completed"),
-      },
-    });
-  }
+  componentDidMount() {}
 
-  getTask = (c: string): Array<JSX.Element> => {
-    return this.state.task
-      .filter((t: Tasks) => {
-        return t.column === c;
-      })
-      .map((t: Tasks) => {
+  makeTasks = (col: number): Array<JSX.Element> => {
+    return this.state.columns[col].task.map(
+      (t: Task, index: number): JSX.Element => {
         return (
-          <li
+          <div
             className="task"
-            key={t.id}
-            onDragStart={(e) => this.onDragStart(e, t.id)}
+            key={`${col}_ta_${index}`}
+            onDragStart={(e) => this.onDragStart(e, col, index)}
             draggable
           >
             {t.name}
-          </li>
+          </div>
         );
-      });
+      }
+    );
   };
 
-  onDragOver = (e: React.DragEvent<HTMLUListElement>) => {
+  taskRemove = (
+    index: number,
+    array: Array<Task>
+  ): { array: Array<Task>; task: Task } => {
+    return {
+      array: [
+        ...array.slice(0, index),
+        ...array.slice(index + 1, array.length),
+      ],
+      task: array[index],
+    };
+  };
+
+  onDragOver = (e: React.DragEvent<HTMLDivElement>): void => {
     e.preventDefault();
   };
 
-  onDragStart = (e: React.DragEvent<HTMLLIElement>, id: number) => {
-    e.dataTransfer.setData("taskid", id.toString());
+  onDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    col: number,
+    index: number
+  ): void => {
+    e.dataTransfer.setData("column", col.toString());
+    e.dataTransfer.setData("taskId", index.toString());
   };
 
-  onDrop = (e: React.DragEvent<HTMLUListElement>, col: string) => {
-    let id = parseInt(e.dataTransfer.getData("taskid"));
-    let ta = this.state.task.filter((t) => {
-      if (t.id === id) {
-        t.column = col;
-      }
-      return t;
-    });
+  onDrop = (e: React.DragEvent<HTMLDivElement>, col: number) => {
+    let id: number = parseInt(e.dataTransfer.getData("taskid"));
+    let prevCol: number = parseInt(e.dataTransfer.getData("column"));
+    let temp: { array: Array<Task>; task: Task } = this.taskRemove(
+      id,
+      this.state.columns[prevCol].task
+    );
+    let buff: Array<Column> = this.state.columns;
+    buff[prevCol].task = temp.array;
+    buff[col].task.push(temp.task);
 
     this.setState({
-      task: ta,
-      column: {
-        toDo: this.getTask("toDo"),
-        ongoing: this.getTask("ongoing"),
-        completed: this.getTask("completed"),
-      },
+      columns: buff,
     });
   };
 
@@ -101,34 +95,29 @@ export default class Home extends React.Component<HomeProps, HomeStates> {
   render() {
     return (
       <div>
-        <h1> Welcome</h1>
-        <button>+ </button>
+        <h1>Welcome!</h1>
+        <button>+</button>
 
         <div className="grid-container">
-          <h2 className="title">To do</h2>
-          <h2 className="title">Ongoing</h2>
-          <h2 className="title">Completed</h2>
-          <ul
-            className="column"
-            onDragOver={(e) => this.onDragOver(e)}
-            onDrop={(e) => this.onDrop(e, "toDo")}
-          >
-            {this.state.column.toDo}
-          </ul>
-          <ul
-            className="column"
-            onDragOver={(e) => this.onDragOver(e)}
-            onDrop={(e) => this.onDrop(e, "ongoing")}
-          >
-            {this.state.column.ongoing}
-          </ul>
-          <ul
-            className="column"
-            onDragOver={(e) => this.onDragOver(e)}
-            onDrop={(e) => this.onDrop(e, "completed")}
-          >
-            {this.state.column.completed}
-          </ul>
+          {this.state.columns.map((col, index) => {
+            return (
+              <h2 className="title" key={`${index}_ti`}>
+                {col.title}
+              </h2>
+            );
+          })}
+          {this.state.columns.map((_, col) => {
+            return (
+              <div
+                className="column"
+                key={`${col}`}
+                onDragOver={(e) => this.onDragOver(e)}
+                onDrop={(e) => this.onDrop(e, col)}
+              >
+                {this.makeTasks(col)}
+              </div>
+            );
+          })}
         </div>
       </div>
     );
