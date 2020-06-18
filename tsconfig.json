@@ -20,7 +20,8 @@
     "isolatedModules": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "public/initialReactFiles"
   ],
   "exclude": [
     "node_modules",
