@@ -68,15 +68,17 @@ export default class Home extends React.Component<HomeProps, HomeStates> {
 
   addTask = () => {
     const tname = (document.querySelector("#tname") as HTMLInputElement).value;
-    const col = parseInt(
-      (document.querySelector("#col") as HTMLInputElement).value
-    );
+    if (tname !== "") {
+      const col = parseInt(
+        (document.querySelector("#col") as HTMLInputElement).value
+      );
 
-    let buff: Array<Column> = this.state.columns;
-    buff[col].task.push({ name: tname });
-    this.setState({
-      columns: buff,
-    });
+      let buff: Array<Column> = this.state.columns;
+      buff[col].task.push({ name: tname });
+      this.setState({
+        columns: buff,
+      });
+    }
 
     this.close("tadd");
   };
@@ -142,12 +144,15 @@ export default class Home extends React.Component<HomeProps, HomeStates> {
       "style",
       "display:block"
     );
+
     if (c !== undefined && i !== undefined) {
       col = c;
       index = i;
       (document.querySelector(
         "#newtname"
       ) as HTMLInputElement).value = this.state.columns[col].task[index].name;
+    } else {
+      (document.querySelector("#tname") as HTMLInputElement).value = "";
     }
   };
 
@@ -205,7 +210,11 @@ export default class Home extends React.Component<HomeProps, HomeStates> {
                 <br></br>
                 <select id="col">
                   {this.state.columns.map((col, index) => {
-                    return <option value={index}>{col.title}</option>;
+                    return (
+                      <option key={`options_${index}`} value={index}>
+                        {col.title}
+                      </option>
+                    );
                   })}
                 </select>
                 <br></br>
