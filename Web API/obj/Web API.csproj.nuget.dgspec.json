@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Visual Studio Code Repos\\agileBoard\\Web API\\Web API.csproj": {}
+    "C:\\Repos\\agileBoard\\Web API\\Web API.csproj": {}
   },
   "projects": {
-    "C:\\Visual Studio Code Repos\\agileBoard\\Web API\\Web API.csproj": {
+    "C:\\Repos\\agileBoard\\Web API\\Web API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Visual Studio Code Repos\\agileBoard\\Web API\\Web API.csproj",
+        "projectUniqueName": "C:\\Repos\\agileBoard\\Web API\\Web API.csproj",
         "projectName": "Web API",
-        "projectPath": "C:\\Visual Studio Code Repos\\agileBoard\\Web API\\Web API.csproj",
+        "projectPath": "C:\\Repos\\agileBoard\\Web API\\Web API.csproj",
         "packagesPath": "C:\\Users\\Ryan Ng\\.nuget\\packages\\",
-        "outputPath": "C:\\Visual Studio Code Repos\\agileBoard\\Web API\\obj\\",
+        "outputPath": "C:\\Repos\\agileBoard\\Web API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Ryan Ng\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.5, )"

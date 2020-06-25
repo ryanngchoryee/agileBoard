@@ -1,0 +1,29 @@
+App Structure
+-------------
+
+● src
++---● actions
+|   |
+|   |-- cardActions.ts (handle all http request)
+|   |-- cardActionTypes.ts (types for cardActions)
+|
++---● components (to be done)
+|   |
+|   |-- Modal.tsx (modal form operations) - child
+|   |-- Board.tsx  (scrum board) - parent
+|   |-- useForm.tsx (handles common form opearations)
+|
++---● reducers
+|   |
+|   |-- cardReducer.ts 
+|   |-- rootReducer.ts (combined reducers)
+|   |-- store.ts (configure redux store)
+|
+|-- App.tsx (main)
+|-- index.tsx
+|-- index.css
+
+
+dependencies (state management & http request): redux, react-redux, redux-thunk, @types/react-redux, @types/redux-thunk, axios
+
+cmpnt -> dispatch(action) -> reducer -> cmpnt
