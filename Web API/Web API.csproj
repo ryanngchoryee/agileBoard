@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200622063219_CardDB.cs" />
+    <Compile Remove="Migrations\20200622063219_CardDB.Designer.cs" />
+    <Compile Remove="Migrations\20200625183616_ColumnDB.cs" />
+    <Compile Remove="Migrations\20200625183616_ColumnDB.Designer.cs" />
+    <Compile Remove="Migrations\20200625184507_ColumnDB.cs" />
+    <Compile Remove="Migrations\20200625184507_ColumnDB.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.5" />

@@ -7,18 +7,13 @@ using System.Threading.Tasks;
 
 namespace Web_API.Models
 {
-    public class Card
+    public class Column
     {
+
         [Key] //define id as primary key
         public int id { get; set; }
-            
-        [Column (TypeName = "varchar(150)" )] //define name data type 
-        public string name {get; set;}
-        
-        //integer no need define 
-        public int priority { get; set; }
 
-        [ForeignKey("Column")]
-        public int column { get; set; }
+        [Column(TypeName = "varchar(150)")] //define name data type 
+        public string name { get; set; }
     }
 }

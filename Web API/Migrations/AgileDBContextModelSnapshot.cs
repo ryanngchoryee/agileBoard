@@ -25,6 +25,9 @@ namespace Web_API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("column")
+                        .HasColumnType("int");
+
                     b.Property<string>("name")
                         .HasColumnType("varchar(150)");
 
@@ -34,6 +37,21 @@ namespace Web_API.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Card");
+                });
+
+            modelBuilder.Entity("Web_API.Models.Column", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("name")
+                        .HasColumnType("varchar(150)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Column");
                 });
 #pragma warning restore 612, 618
         }

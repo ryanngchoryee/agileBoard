@@ -9,7 +9,8 @@ export const DELETE = "DELETE";
 export type Task = {
   id?: number;
   name: string;
-  priority?: number;
+  priority: number;
+  column: number;
 };
 
 export type CardFetchAll = {
