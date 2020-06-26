@@ -1,6 +1,6 @@
 import {
   Task,
-  CardDispatchTypes,
+  DispatchTypes,
   FETCH_ALL,
   FETCH_BY_ID,
   CREATE,
@@ -8,7 +8,7 @@ import {
   DELETE,
   FAIL,
   SUCCESS,
-} from "../actions/cardActionTypes";
+} from "../actions/actionTypes";
 
 type DefaultStateI = {
   loading: boolean;
@@ -21,7 +21,7 @@ const defaultState: DefaultStateI = {
 
 export const cardReducer = (
   state: DefaultStateI = defaultState,
-  action: CardDispatchTypes
+  action: DispatchTypes
 ): DefaultStateI => {
   switch (action.type) {
     case FAIL:

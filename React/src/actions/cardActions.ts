@@ -1,18 +1,21 @@
 import { Dispatch } from "redux";
 import {
-  CardDispatchTypes,
+  DispatchTypes,
   FETCH_ALL,
   FETCH_BY_ID,
+  CREATE,
+  UPDATE,
+  DELETE,
   FAIL,
   SUCCESS,
   Task,
-} from "./cardActionTypes";
+} from "./actionTypes";
 import axios from "axios";
 
 const baseURL = "http://localhost:51098/api/card/";
 
 export const getAllCard = () => async (
-  dispatch: Dispatch<CardDispatchTypes>
+  dispatch: Dispatch<DispatchTypes>
 ) => {
   dispatch({
     type: FETCH_ALL,
@@ -23,19 +26,18 @@ export const getAllCard = () => async (
     .then((res) => {
       dispatch({
         type: SUCCESS,
-        payload: res.data,
+        payload: res.data
       });
     })
-    .catch((e) =>
+    .catch(() =>
       dispatch({
-        type: FAIL,
-        error: e,
+        type: FAIL
       })
     );
 };
 
 export const getCardById = (id: string) => async (
-  dispatch: Dispatch<CardDispatchTypes>
+  dispatch: Dispatch<DispatchTypes>
 ) => {
   dispatch({
     type: FETCH_BY_ID,
@@ -46,22 +48,21 @@ export const getCardById = (id: string) => async (
     .then((res) => {
       dispatch({
         type: SUCCESS,
-        payload: res.data,
+        payload: res.data
       });
     })
-    .catch((e) =>
+    .catch(() =>
       dispatch({
-        type: FAIL,
-        error: e,
+        type: FAIL
       })
     );
 };
 
 export const createCard = (newRecord: Task) => async (
-  dispatch: Dispatch<CardDispatchTypes>
+  dispatch: Dispatch<DispatchTypes>
 ) => {
   dispatch({
-    type: FETCH_BY_ID,
+    type: CREATE,
   });
 
   await axios
@@ -69,22 +70,21 @@ export const createCard = (newRecord: Task) => async (
     .then((res) => {
       dispatch({
         type: SUCCESS,
-        payload: res.data,
+        payload: res.data
       });
     })
-    .catch((e) =>
+    .catch(() =>
       dispatch({
-        type: FAIL,
-        error: e,
+        type: FAIL
       })
     );
 };
 
 export const updateCard = (id: string, newRecord: Task) => async (
-  dispatch: Dispatch<CardDispatchTypes>
+  dispatch: Dispatch<DispatchTypes>
 ) => {
   dispatch({
-    type: FETCH_BY_ID,
+    type: UPDATE,
   });
 
   await axios
@@ -92,22 +92,21 @@ export const updateCard = (id: string, newRecord: Task) => async (
     .then((res) => {
       dispatch({
         type: SUCCESS,
-        payload: res.data,
+        payload: res.data
       });
     })
-    .catch((e) =>
+    .catch(() =>
       dispatch({
-        type: FAIL,
-        error: e,
+        type: FAIL
       })
     );
 };
 
 export const deleteCard = (id: string) => async (
-  dispatch: Dispatch<CardDispatchTypes>
+  dispatch: Dispatch<DispatchTypes>
 ) => {
   dispatch({
-    type: FETCH_BY_ID,
+    type: DELETE,
   });
 
   await axios
@@ -115,13 +114,12 @@ export const deleteCard = (id: string) => async (
     .then((res) => {
       dispatch({
         type: SUCCESS,
-        payload: res.data,
+        payload: res.data
       });
     })
-    .catch((e) =>
+    .catch(() =>
       dispatch({
-        type: FAIL,
-        error: e,
+        type: FAIL
       })
     );
 };

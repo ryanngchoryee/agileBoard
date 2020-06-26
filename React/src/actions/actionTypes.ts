@@ -9,45 +9,49 @@ export const DELETE = "DELETE";
 export type Task = {
   id?: number;
   name: string;
-  priority: number;
-  column: number;
+  priority?: number;
+  column?: number;
 };
 
-export type CardFetchAll = {
+export type Column = {
+  id?: number;
+  name: string;
+}
+
+export type FetchAll = {
   type: typeof FETCH_ALL;
 };
 
-export type CardFetchById = {
+export type FetchById = {
   type: typeof FETCH_BY_ID;
 };
 
-export type CardCreate = {
+export type Create = {
   type: typeof CREATE;
 };
 
-export type CardUpdate = {
+export type Update = {
   type: typeof UPDATE;
 };
 
-export type CardDelete = {
+export type Delete = {
   type: typeof DELETE;
 };
 
-export type CardFail = {
+export type Fail = {
   type: typeof FAIL;
-  error: any;
 };
 
-export type CardSuccess = {
+export type Success = {
   type: typeof SUCCESS;
-  payload?: Array<Task> | Task;
+  payload?: Array<Task> | Array<Column> | Task | Column;
 };
 
-export type CardDispatchTypes =
-  | CardFetchAll
-  | CardFetchById
-  | CardFail
-  | CardCreate
-  | CardUpdate
-  | CardDelete
-  | CardSuccess;
+export type DispatchTypes =
+  | FetchAll
+  | FetchById
+  | Fail
+  | Create
+  | Update
+  | Delete
+  | Success;
