@@ -2,38 +2,57 @@ import React from "react";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from "./reducers/store";
-import { getCardById, getAllCard, createCard, deleteCard, updateCard } from "./actions/cardActions";
+// import { getCardById, getAllCard, createCard, deleteCard, updateCard } from "./actions/cardActions";
+import { getColumnById, getAllColumn, createColumn, deleteColumn, updateColumn } from "./actions/columnActions";
 
 function App() {
   const dispatch = useDispatch();
   const cardState = useSelector((state: RootStore) => state.card);
+  //   const handleSubmit = () => {
+  //     dispatch(getCardById((document.querySelector("#id") as HTMLInputElement).value));
+  //   };
+  //   const handleAll = () => {
+  //     dispatch(getAllCard());
+  //   };
+  //   const handleUpdate = () => {
+  //     dispatch(updateCard(
+  //       (document.querySelector("#id") as HTMLInputElement).value,
+  //       { name: (document.querySelector("#name") as HTMLInputElement).value }));
+  //   };
+  //   const handleDelete = () => {
+  //     dispatch(deleteCard((document.querySelector("#id") as HTMLInputElement).value));
+  //   };
+  //   const handleCreate = () => {
+  //     dispatch(createCard({ name: (document.querySelector("#name") as HTMLInputElement).value }));
+  //   };
+
   const handleSubmit = () => {
-    dispatch(getCardById((document.querySelector("#id") as HTMLInputElement).value));
+    dispatch(getColumnById((document.querySelector("#id") as HTMLInputElement).value));
   };
   const handleAll = () => {
-    dispatch(getAllCard());
+    dispatch(getAllColumn());
   };
   const handleUpdate = () => {
-    dispatch(updateCard(
+    dispatch(updateColumn(
       (document.querySelector("#id") as HTMLInputElement).value,
       { name: (document.querySelector("#name") as HTMLInputElement).value }));
   };
   const handleDelete = () => {
-    dispatch(deleteCard((document.querySelector("#id") as HTMLInputElement).value));
+    dispatch(deleteColumn((document.querySelector("#id") as HTMLInputElement).value));
   };
   const handleCreate = () => {
-    dispatch(createCard({ name: (document.querySelector("#name") as HTMLInputElement).value }));
+    dispatch(createColumn({ name: (document.querySelector("#name") as HTMLInputElement).value }));
   };
 
   console.log(cardState);
   return (
     <div>
-      <label>Task id: </label>
+      <label>Column id: </label>
       <br></br>
       <input type="text" id="id"></input>
       <br></br>
       <br></br>
-      <label>Task name: </label>
+      <label>Column name: </label>
       <br></br>
       <input type="text" id="name"></input>
       <br></br>
