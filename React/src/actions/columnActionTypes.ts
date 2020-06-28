@@ -1,0 +1,36 @@
+type ColumnActionTypes = {
+  COLUMN_LOADING: string;
+  COLUMN_FAIL: string;
+  COLUMN_FETCH_ALL: string;
+  COLUMN_FETCH_BY_ID: string;
+  COLUMN_CREATE: string;
+  COLUMN_UPDATE: string;
+  COLUMN_DELETE: string;
+};
+
+export const COLUMN_ACTION_TYPES: ColumnActionTypes = {
+  COLUMN_LOADING: "COLUMN_LOADING",
+  COLUMN_FAIL: "COLUMN_FAIL",
+  COLUMN_FETCH_ALL: "COLUMN_FETCH_ALL",
+  COLUMN_FETCH_BY_ID: "COLUMN_FETCH_BY_ID",
+  COLUMN_CREATE: "COLUMN_CREATE",
+  COLUMN_UPDATE: "COLUMN_UPDATE",
+  COLUMN_DELETE: "COLUMN_DELETE",
+};
+
+export type Column = {
+  id?: number;
+  name: string;
+};
+
+export type ColumnDispatchTypes = {
+  type:
+    | typeof COLUMN_ACTION_TYPES.COLUMN_LOADING
+    | typeof COLUMN_ACTION_TYPES.COLUMN_FAIL
+    | typeof COLUMN_ACTION_TYPES.COLUMN_FETCH_ALL
+    | typeof COLUMN_ACTION_TYPES.COLUMN_FETCH_BY_ID
+    | typeof COLUMN_ACTION_TYPES.COLUMN_CREATE
+    | typeof COLUMN_ACTION_TYPES.COLUMN_UPDATE
+    | typeof COLUMN_ACTION_TYPES.COLUMN_DELETE;
+  payload?: Array<Column>;
+};

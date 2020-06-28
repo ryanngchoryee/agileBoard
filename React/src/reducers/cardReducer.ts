@@ -1,56 +1,34 @@
 import {
-  Task,
-  DispatchTypes,
-  FETCH_ALL,
-  FETCH_BY_ID,
-  CREATE,
-  UPDATE,
-  DELETE,
-  FAIL,
-  SUCCESS,
-} from "../actions/actionTypes";
+  Card,
+  CARD_ACTION_TYPES,
+  CardDispatchTypes,
+} from "../actions/cardActionTypes";
 
-type DefaultStateI = {
+type CardDefaultStateI = {
   loading: boolean;
-  card?: Array<Task> | Task;
+  card?: Array<Card>;
 };
 
-const defaultState: DefaultStateI = {
+const defaultState: CardDefaultStateI = {
   loading: false,
 };
 
 export const cardReducer = (
-  state: DefaultStateI = defaultState,
-  action: DispatchTypes
-): DefaultStateI => {
+  state: CardDefaultStateI = defaultState,
+  action: CardDispatchTypes
+): CardDefaultStateI => {
   switch (action.type) {
-    case FAIL:
+    case CARD_ACTION_TYPES.CARD_LOADING:
+      return {
+        loading: true,
+      };
+    case CARD_ACTION_TYPES.CARD_FAIL:
       return {
         loading: false,
       };
-    case FETCH_ALL:
+    case CARD_ACTION_TYPES.CARD_FETCH_ALL:
       return {
         loading: true,
-      };
-    case FETCH_BY_ID:
-      return {
-        loading: true,
-      };
-    case CREATE:
-      return {
-        loading: true,
-      };
-    case UPDATE:
-      return {
-        loading: true,
-      };
-    case DELETE:
-      return {
-        loading: true,
-      };
-    case SUCCESS:
-      return {
-        loading: false,
         card: action.payload,
       };
     default:

@@ -1,125 +1,107 @@
 import { Dispatch } from "redux";
-import {
-    Column,
-    DispatchTypes,
-    FETCH_ALL,
-    FETCH_BY_ID,
-    CREATE,
-    UPDATE,
-    DELETE,
-    FAIL,
-    SUCCESS,
-} from "../actions/actionTypes";
 import axios from "axios";
+import {
+  Column,
+  COLUMN_ACTION_TYPES,
+  ColumnDispatchTypes,
+} from "./columnActionTypes";
 
 const baseURL = "http://localhost:51098/api/column/";
 
-export const getAllColumn = () => async (
-    dispatch: Dispatch<DispatchTypes>
-) => {
+export const column = {
+  getAllColumn: () => async (dispatch: Dispatch<ColumnDispatchTypes>) => {
     dispatch({
-        type: FETCH_ALL,
+      type: COLUMN_ACTION_TYPES.COLUMN_LOADING,
     });
 
     await axios
-        .get(baseURL)
-        .then((res) => {
-            dispatch({
-                type: SUCCESS,
-                payload: res.data
-            });
+      .get(baseURL)
+      .then((res) => {
+        dispatch({
+          type: COLUMN_ACTION_TYPES.COLUMN_FETCH_ALL,
+          payload: res.data,
+        });
+      })
+      .catch(() =>
+        dispatch({
+          type: COLUMN_ACTION_TYPES.COLUMN_FAIL,
         })
-        .catch(() =>
-            dispatch({
-                type: FAIL
-            })
-        );
-};
-
-export const getColumnById = (id: string) => async (
-    dispatch: Dispatch<DispatchTypes>
-) => {
+      );
+  },
+  createColumn: (newRecord: Column) => async (
+    dispatch: Dispatch<ColumnDispatchTypes>
+  ) => {
     dispatch({
-        type: FETCH_BY_ID,
+      type: COLUMN_ACTION_TYPES.COLUMN_LOADING,
     });
 
     await axios
-        .get(`${baseURL}${id}`)
-        .then((res) => {
-            dispatch({
-                type: SUCCESS,
-                payload: res.data
-            });
+      .post(`${baseURL}`, newRecord)
+      .then((_) => {
+        column.getAllColumn();
+      })
+      .catch(() =>
+        dispatch({
+          type: COLUMN_ACTION_TYPES.COLUMN_FAIL,
         })
-        .catch(() =>
-            dispatch({
-                type: FAIL
-            })
-        );
-};
-
-export const createColumn = (newRecord: Column) => async (
-    dispatch: Dispatch<DispatchTypes>
-) => {
+      );
+  },
+  updateColumn: (id: string, newRecord: Column) => async (
+    dispatch: Dispatch<ColumnDispatchTypes>
+  ) => {
     dispatch({
-        type: CREATE,
+      type: COLUMN_ACTION_TYPES.COLUMN_LOADING,
     });
 
     await axios
-        .post(`${baseURL}`, newRecord)
-        .then((res) => {
-            dispatch({
-                type: SUCCESS,
-                payload: res.data
-            });
+      .put(`${baseURL}${id}`, newRecord)
+      .then((res) => {
+        column.getAllColumn();
+      })
+      .catch(() =>
+        dispatch({
+          type: COLUMN_ACTION_TYPES.COLUMN_FAIL,
         })
-        .catch(() =>
-            dispatch({
-                type: FAIL
-            })
-        );
-};
-
-export const updateColumn = (id: string, newRecord: Column) => async (
-    dispatch: Dispatch<DispatchTypes>
-) => {
+      );
+  },
+  deleteColumn: (id: string) => async (
+    dispatch: Dispatch<ColumnDispatchTypes>
+  ) => {
     dispatch({
-        type: UPDATE,
+      type: COLUMN_ACTION_TYPES.COLUMN_LOADING,
     });
 
     await axios
-        .put(`${baseURL}${id}`, newRecord)
-        .then((res) => {
-            dispatch({
-                type: SUCCESS,
-                payload: res.data
-            });
+      .delete(`${baseURL}${id}`)
+      .then((res) => {
+        column.getAllColumn();
+      })
+      .catch(() =>
+        dispatch({
+          type: COLUMN_ACTION_TYPES.COLUMN_FAIL,
         })
-        .catch(() =>
-            dispatch({
-                type: FAIL
-            })
-        );
+      );
+  },
 };
 
-export const deleteColumn = (id: string) => async (
-    dispatch: Dispatch<DispatchTypes>
-) => {
-    dispatch({
-        type: DELETE,
-    });
+// getColumnById: (id: string) => async (
+//   dispatch: Dispatch<ColumnDispatchTypes>
+// ) => {
+//   dispatch({
+//     type: COLUMN_ACTION_TYPES.COLUMN_FETCH_BY_ID,
+//   });
 
-    await axios
-        .delete(`${baseURL}${id}`)
-        .then((res) => {
-            dispatch({
-                type: SUCCESS,
-                payload: res.data
-            });
-        })
-        .catch(() =>
-            dispatch({
-                type: FAIL
-            })
-        );
-};
+//   await axios
+//     .get(`${baseURL}${id}`)
+//     .then((res) => {
+//       dispatch({
+//         type: COLUMN_ACTION_TYPES.COLUMN_SUCCESS,
+//         payload: res.data,
+//       });
+//     })
+//     .catch(() =>
+//       dispatch({
+//         type: COLUMN_ACTION_TYPES.COLUMN_FAIL,
+//       })
+//     );
+// },

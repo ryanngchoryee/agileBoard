@@ -2,51 +2,134 @@ import React from "react";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootStore } from "./reducers/store";
-// import { getCardById, getAllCard, createCard, deleteCard, updateCard } from "./actions/cardActions";
-import { getColumnById, getAllColumn, createColumn, deleteColumn, updateColumn } from "./actions/columnActions";
+import { card } from "./actions/cardActions";
+import { column } from "./actions/columnActions";
+import { Column } from "./actions/columnActionTypes";
+import { Card } from "./actions/cardActionTypes";
 
 function App() {
   const dispatch = useDispatch();
   const cardState = useSelector((state: RootStore) => state.card);
-  //   const handleSubmit = () => {
-  //     dispatch(getCardById((document.querySelector("#id") as HTMLInputElement).value));
-  //   };
-  //   const handleAll = () => {
-  //     dispatch(getAllCard());
-  //   };
-  //   const handleUpdate = () => {
-  //     dispatch(updateCard(
-  //       (document.querySelector("#id") as HTMLInputElement).value,
-  //       { name: (document.querySelector("#name") as HTMLInputElement).value }));
-  //   };
-  //   const handleDelete = () => {
-  //     dispatch(deleteCard((document.querySelector("#id") as HTMLInputElement).value));
-  //   };
-  //   const handleCreate = () => {
-  //     dispatch(createCard({ name: (document.querySelector("#name") as HTMLInputElement).value }));
-  //   };
+  const columnState = useSelector((state: RootStore) => state.column);
 
-  const handleSubmit = () => {
-    dispatch(getColumnById((document.querySelector("#id") as HTMLInputElement).value));
+  const cardHandleAll = () => {
+    dispatch(card.getAllCard());
   };
-  const handleAll = () => {
-    dispatch(getAllColumn());
+
+  const columnHandleAll = () => {
+    dispatch(column.getAllColumn());
   };
+
+  const cardHandleUpdate = () => {
+    dispatch(
+      card.updateCard(
+        (document.querySelector("#id") as HTMLInputElement).value,
+        { name: (document.querySelector("#name") as HTMLInputElement).value }
+      )
+    );
+  };
+
+  const cardHandleDelete = () => {
+    dispatch(
+      card.deleteCard((document.querySelector("#id") as HTMLInputElement).value)
+    );
+  };
+
+  const cardHandleCreate = () => {
+    dispatch(
+      card.createCard({
+        name: (document.querySelector("#name") as HTMLInputElement).value,
+      })
+    );
+  };
+
   const handleUpdate = () => {
-    dispatch(updateColumn(
-      (document.querySelector("#id") as HTMLInputElement).value,
-      { name: (document.querySelector("#name") as HTMLInputElement).value }));
-  };
-  const handleDelete = () => {
-    dispatch(deleteColumn((document.querySelector("#id") as HTMLInputElement).value));
-  };
-  const handleCreate = () => {
-    dispatch(createColumn({ name: (document.querySelector("#name") as HTMLInputElement).value }));
+    dispatch(
+      column.updateColumn(
+        (document.querySelector("#id") as HTMLInputElement).value,
+        {
+          name: (document.querySelector("#name") as HTMLInputElement).value,
+        }
+      )
+    );
   };
 
-  console.log(cardState);
+  const handleDelete = () => {
+    dispatch(
+      column.deleteColumn(
+        (document.querySelector("#id") as HTMLInputElement).value
+      )
+    );
+  };
+
+  const handleCreate = () => {
+    dispatch(
+      column.createColumn({
+        name: (document.querySelector("#name") as HTMLInputElement).value,
+      })
+    );
+  };
+
+  const draggableColumn: Array<JSX.Element> | undefined = columnState.column
+    ? columnState.column.map(
+        (col: Column, index: number): JSX.Element => {
+          return (
+            <div
+              className="column"
+              key={`${index}`}
+              // onDragOver={(e) => this.onDragOver(e)}
+              // onDrop={(e) => this.onDrop(e, col)}
+            >
+              {cardState.card
+                ? cardState.card
+                    .filter((card: Card): boolean => {
+                      return card.column === col.id;
+                    })
+                    .map(
+                      (card: Card, index: number): JSX.Element => {
+                        return (
+                          <div
+                            className="task"
+                            key={`${card.column}_ta_${index}`}
+                            // onDragStart={(e) => this.onDragStart(e, c, i)}
+                            // onClick={() => this.open("tedit", c, i)}
+                            draggable
+                          >
+                            {card.name}
+                          </div>
+                        );
+                      }
+                    )
+                : undefined}
+            </div>
+          );
+        }
+      )
+    : undefined;
+
+  const makeColumn: Array<JSX.Element> | undefined = columnState.column
+    ? columnState.column.map(
+        (col: Column, index: number): JSX.Element => {
+          return (
+            <h2 className="title" key={`${index}_ti`}>
+              {col.name}
+            </h2>
+          );
+        }
+      )
+    : undefined;
+
+  console.log("columnState: ", columnState);
+  console.log("cardstate: ", cardState);
   return (
     <div>
+      <h1>Welcome!</h1>
+      <button className="open">+</button>
+
+      <div className="grid-container">
+        {makeColumn}
+        {draggableColumn}
+      </div>
       <label>Column id: </label>
       <br></br>
       <input type="text" id="id"></input>
@@ -57,13 +140,28 @@ function App() {
       <input type="text" id="name"></input>
       <br></br>
       <br></br>
-      <button onClick={handleSubmit}>Search</button>
-      <button onClick={handleAll}>All</button>
-      <button onClick={handleUpdate}>Update</button>
-      <button onClick={handleDelete}>Delete</button>
-      <button onClick={handleCreate}>Create</button>
+
+      <button onClick={columnHandleAll}>ColumnAll</button>
+      <button onClick={cardHandleAll}>CardAll</button>
     </div>
   );
 }
 
 export default App;
+
+// const handleSearch = () => {
+//   dispatch(
+//     card.getCardById(
+//       (document.querySelector("#id") as HTMLInputElement).value
+//     )
+//   );
+// };
+// const handleSearch = () => {
+//   dispatch(
+//     column.getColumnById(
+//       (document.querySelector("#id") as HTMLInputElement).value
+//     )
+//   );
+// };
+
+// <button onClick={handleSearch}>Search</button>

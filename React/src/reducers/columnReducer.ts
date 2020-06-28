@@ -1,59 +1,37 @@
 import {
-    Column,
-    DispatchTypes,
-    FETCH_ALL,
-    FETCH_BY_ID,
-    CREATE,
-    UPDATE,
-    DELETE,
-    FAIL,
-    SUCCESS,
-} from "../actions/actionTypes";
+  Column,
+  COLUMN_ACTION_TYPES,
+  ColumnDispatchTypes,
+} from "../actions/columnActionTypes";
 
-type DefaultStateI = {
-    loading: boolean;
-    column?: Array<Column> | Column;
+type ColumnDefaultStateI = {
+  loading: boolean;
+  column?: Array<Column>;
 };
 
-const defaultState: DefaultStateI = {
-    loading: false,
+const defaultState: ColumnDefaultStateI = {
+  loading: false,
 };
 
 export const columnReducer = (
-    state: DefaultStateI = defaultState,
-    action: DispatchTypes
-): DefaultStateI => {
-    switch (action.type) {
-        case FAIL:
-            return {
-                loading: false,
-            };
-        case FETCH_ALL:
-            return {
-                loading: true,
-            };
-        case FETCH_BY_ID:
-            return {
-                loading: true,
-            };
-        case CREATE:
-            return {
-                loading: true,
-            };
-        case UPDATE:
-            return {
-                loading: true,
-            };
-        case DELETE:
-            return {
-                loading: true,
-            };
-        case SUCCESS:
-            return {
-                loading: false,
-                column: action.payload,
-            };
-        default:
-            return state;
-    }
-}
+  state: ColumnDefaultStateI = defaultState,
+  action: ColumnDispatchTypes
+): ColumnDefaultStateI => {
+  switch (action.type) {
+    case COLUMN_ACTION_TYPES.COLUMN_LOADING:
+      return {
+        loading: true,
+      };
+    case COLUMN_ACTION_TYPES.COLUMN_FAIL:
+      return {
+        loading: false,
+      };
+    case COLUMN_ACTION_TYPES.COLUMN_FETCH_ALL:
+      return {
+        loading: false,
+        column: action.payload,
+      };
+    default:
+      return state;
+  }
+};
