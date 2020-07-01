@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Web_API.Models
 {
-    public class Column
+    public class Bar
     {
 
         [Key] //define id as primary key
@@ -15,5 +15,6 @@ namespace Web_API.Models
 
         [Column(TypeName = "varchar(150)")] //define name data type 
         public string name { get; set; }
+
     }
 }

@@ -18,7 +18,9 @@ namespace Web_API.Models
         //integer no need define 
         public int priority { get; set; }
 
-        [ForeignKey("Column")]
         public int column { get; set; }
+
+        [ForeignKey("column")]
+        public Bar Bar{ get; set; }
     }
 }

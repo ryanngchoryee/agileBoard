@@ -11,48 +11,48 @@ namespace Web_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ColumnController : ControllerBase
+    public class BarController : ControllerBase
     {
         private readonly AgileDBContext _context;
 
-        public ColumnController(AgileDBContext context)
+        public BarController(AgileDBContext context)
         {
             _context = context;
         }
 
-        // GET: api/Column
+        // GET: api/Bar
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Column>>> GetColumn()
+        public async Task<ActionResult<IEnumerable<Bar>>> GetBar()
         {
-            return await _context.Column.ToListAsync();
+            return await _context.Bar.ToListAsync();
         }
 
-        // GET: api/Column/5
+        // GET: api/Bar/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Column>> GetColumn(int id)
+        public async Task<ActionResult<Bar>> GetBar(int id)
         {
-            var column = await _context.Column.FindAsync(id);
+            var bar = await _context.Bar.FindAsync(id);
 
-            if (column == null)
+            if (bar == null)
             {
                 return NotFound();
             }
 
-            return column;
+            return bar;
         }
 
-        // PUT: api/Column/5
+        // PUT: api/Bar/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutColumn(int id, Column column)
+        public async Task<IActionResult> PutBar(int id, Bar bar)
         {
-            if (id != column.id)
+            if (id != bar.id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(column).State = EntityState.Modified;
+            _context.Entry(bar).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Web_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ColumnExists(id))
+                if (!BarExists(id))
                 {
                     return NotFound();
                 }
@@ -73,37 +73,37 @@ namespace Web_API.Controllers
             return NoContent();
         }
 
-        // POST: api/Column
+        // POST: api/Bar
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Column>> PostColumn(Column column)
+        public async Task<ActionResult<Bar>> PostBar(Bar bar)
         {
-            _context.Column.Add(column);
+            _context.Bar.Add(bar);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetColumn", new { id = column.id }, column);
+            return CreatedAtAction("GetBar", new { id = bar.id }, bar);
         }
 
-        // DELETE: api/Column/5
+        // DELETE: api/Bar/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Column>> DeleteColumn(int id)
+        public async Task<ActionResult<Bar>> DeleteBar(int id)
         {
-            var column = await _context.Column.FindAsync(id);
-            if (column == null)
+            var bar = await _context.Bar.FindAsync(id);
+            if (bar == null)
             {
                 return NotFound();
             }
 
-            _context.Column.Remove(column);
+            _context.Bar.Remove(bar);
             await _context.SaveChangesAsync();
 
-            return column;
+            return bar;
         }
 
-        private bool ColumnExists(int id)
+        private bool BarExists(int id)
         {
-            return _context.Column.Any(e => e.id == id);
+            return _context.Bar.Any(e => e.id == id);
         }
     }
 }

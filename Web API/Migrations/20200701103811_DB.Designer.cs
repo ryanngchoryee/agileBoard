@@ -9,7 +9,7 @@ using Web_API.Models;
 namespace Web_API.Migrations
 {
     [DbContext(typeof(AgileDBContext))]
-    [Migration("20200626070902_DB")]
+    [Migration("20200701103811_DB")]
     partial class DB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,6 +19,21 @@ namespace Web_API.Migrations
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Web_API.Models.Bar", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("name")
+                        .HasColumnType("varchar(150)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Bar");
+                });
 
             modelBuilder.Entity("Web_API.Models.Card", b =>
                 {
@@ -38,22 +53,18 @@ namespace Web_API.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("column");
+
                     b.ToTable("Card");
                 });
 
-            modelBuilder.Entity("Web_API.Models.Column", b =>
+            modelBuilder.Entity("Web_API.Models.Card", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("name")
-                        .HasColumnType("varchar(150)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Column");
+                    b.HasOne("Web_API.Models.Bar", "Bar")
+                        .WithMany()
+                        .HasForeignKey("column")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

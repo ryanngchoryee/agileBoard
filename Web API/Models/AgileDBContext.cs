@@ -14,7 +14,7 @@ namespace Web_API.Models
 
         public DbSet<Card> Card { get; set; }
 
-        public DbSet<Column> Column { get; set; }
+        public DbSet<Bar> Bar { get; set; }
 
     }
 }

@@ -18,6 +18,21 @@ namespace Web_API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Web_API.Models.Bar", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("name")
+                        .HasColumnType("varchar(150)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Bar");
+                });
+
             modelBuilder.Entity("Web_API.Models.Card", b =>
                 {
                     b.Property<int>("id")
@@ -36,22 +51,18 @@ namespace Web_API.Migrations
 
                     b.HasKey("id");
 
+                    b.HasIndex("column");
+
                     b.ToTable("Card");
                 });
 
-            modelBuilder.Entity("Web_API.Models.Column", b =>
+            modelBuilder.Entity("Web_API.Models.Card", b =>
                 {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("name")
-                        .HasColumnType("varchar(150)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Column");
+                    b.HasOne("Web_API.Models.Bar", "Bar")
+                        .WithMany()
+                        .HasForeignKey("column")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
