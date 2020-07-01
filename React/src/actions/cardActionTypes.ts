@@ -34,5 +34,5 @@ export type CardDispatchTypes = {
     | typeof CARD_ACTION_TYPES.CARD_CREATE
     | typeof CARD_ACTION_TYPES.CARD_UPDATE
     | typeof CARD_ACTION_TYPES.CARD_DELETE;
-  payload?: Array<Card>;
+  payload?: any;
 };

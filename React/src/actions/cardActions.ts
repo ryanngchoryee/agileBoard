@@ -30,10 +30,14 @@ export const card = {
     dispatch({
       type: CARD_ACTION_TYPES.CARD_LOADING,
     });
+
     await axios
       .post(`${baseURL}`, newRecord)
-      .then((_) => {
-        card.getAllCard();
+      .then((res) => {
+        dispatch({
+          type: CARD_ACTION_TYPES.CARD_CREATE,
+          payload: res.data,
+        });
       })
       .catch(() =>
         dispatch({
@@ -50,8 +54,12 @@ export const card = {
     });
     await axios
       .put(`${baseURL}${id}`, newRecord)
-      .then((_) => {
-        card.getAllCard();
+      .then(() => {
+        console.log(newRecord);
+        dispatch({
+          type: CARD_ACTION_TYPES.CARD_UPDATE,
+          payload: { id: parseInt(id), record: newRecord },
+        });
       })
       .catch(() =>
         dispatch({
@@ -66,8 +74,11 @@ export const card = {
     });
     await axios
       .delete(`${baseURL}${id}`)
-      .then((_) => {
-        card.getAllCard();
+      .then(() => {
+        dispatch({
+          type: CARD_ACTION_TYPES.CARD_DELETE,
+          payload: parseInt(id),
+        });
       })
       .catch(() =>
         dispatch({

@@ -6,7 +6,7 @@ import {
   ColumnDispatchTypes,
 } from "./columnActionTypes";
 
-const baseURL = "http://localhost:51098/api/column/";
+const baseURL = "http://localhost:51098/api/bar/";
 
 export const column = {
   getAllColumn: () => async (dispatch: Dispatch<ColumnDispatchTypes>) => {
