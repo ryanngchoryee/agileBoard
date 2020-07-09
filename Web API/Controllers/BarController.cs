@@ -24,14 +24,14 @@ namespace Web_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bar>>> GetBar()
         {
-            return await _context.Bar.ToListAsync();
+            return await _context.Bars.ToListAsync();
         }
 
         // GET: api/Bar/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Bar>> GetBar(int id)
         {
-            var bar = await _context.Bar.FindAsync(id);
+            var bar = await _context.Bars.FindAsync(id);
 
             if (bar == null)
             {
@@ -47,10 +47,7 @@ namespace Web_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBar(int id, Bar bar)
         {
-            if (id != bar.id)
-            {
-                return BadRequest();
-            }
+            bar.BarId = id;
 
             _context.Entry(bar).State = EntityState.Modified;
 
@@ -79,23 +76,23 @@ namespace Web_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Bar>> PostBar(Bar bar)
         {
-            _context.Bar.Add(bar);
+            _context.Bars.Add(bar);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBar", new { id = bar.id }, bar);
+            return CreatedAtAction("GetBar", new { id = bar.BarId }, bar);
         }
 
         // DELETE: api/Bar/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Bar>> DeleteBar(int id)
         {
-            var bar = await _context.Bar.FindAsync(id);
+            var bar = await _context.Bars.FindAsync(id);
             if (bar == null)
             {
                 return NotFound();
             }
 
-            _context.Bar.Remove(bar);
+            _context.Bars.Remove(bar);
             await _context.SaveChangesAsync();
 
             return bar;
@@ -103,7 +100,7 @@ namespace Web_API.Controllers
 
         private bool BarExists(int id)
         {
-            return _context.Bar.Any(e => e.id == id);
+            return _context.Bars.Any(e => e.BarId == id);
         }
     }
 }

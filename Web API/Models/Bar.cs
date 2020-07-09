@@ -11,10 +11,12 @@ namespace Web_API.Models
     {
 
         [Key] //define id as primary key
-        public int id { get; set; }
+        public int BarId { get; set; }
 
         [Column(TypeName = "varchar(150)")] //define name data type 
-        public string name { get; set; }
+        [Required]
+        public string Name { get; set; }
 
+        public virtual ICollection<Card> Cards { get; set; }
     }
 }

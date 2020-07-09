@@ -31,7 +31,7 @@ namespace Web_API
             //Inject connection string object (appsettings.json)
             //Multiple connection allowed by declaring keys in ConnectionString Object (eg. DecConnection, ProdConnection)
             services.AddDbContext<AgileDBContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
 
             services.AddCors();
         }

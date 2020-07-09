@@ -24,14 +24,14 @@ namespace Web_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Card>>> GetCard()
         {
-            return await _context.Card.ToListAsync();
+            return await _context.Cards.ToListAsync();
         }
 
         // GET: api/Card/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Card>> GetCard(int id)
         {
-            var card = await _context.Card.FindAsync(id);
+            var card = await _context.Cards.FindAsync(id);
 
             if (card == null)
             {
@@ -47,7 +47,7 @@ namespace Web_API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCard(int id, Card card)
         {
-            card.id = id;
+            card.CardId = id;
 
             _context.Entry(card).State = EntityState.Modified;
 
@@ -76,23 +76,23 @@ namespace Web_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Card>> PostCard(Card card)
         {
-            _context.Card.Add(card);
+            _context.Cards.Add(card);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCard", new { id = card.id }, card);
+            return CreatedAtAction("GetCard", new { id = card.CardId }, card);
         }
 
         // DELETE: api/Card/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Card>> DeleteCard(int id)
         {
-            var card = await _context.Card.FindAsync(id);
+            var card = await _context.Cards.FindAsync(id);
             if (card == null)
             {
                 return NotFound();
             }
 
-            _context.Card.Remove(card);
+            _context.Cards.Remove(card);
             await _context.SaveChangesAsync();
 
             return card;
@@ -100,7 +100,7 @@ namespace Web_API.Controllers
 
         private bool CardExists(int id)
         {
-            return _context.Card.Any(e => e.id == id);
+            return _context.Cards.Any(e => e.CardId == id);
         }
     }
 }

@@ -10,17 +10,19 @@ namespace Web_API.Models
     public class Card
     {
         [Key] //define id as primary key
-        public int id { get; set; }
+        public int CardId { get; set; }
             
         [Column (TypeName = "varchar(150)" )] //define name data type 
-        public string name {get; set;}
+        [Required]
+        public string Name {get; set;}
         
         //integer no need define 
-        public int priority { get; set; }
+        public int? Priority { get; set; }
 
-        public int column { get; set; }
+        public int Column { get; set; }
 
-        [ForeignKey("column")]
-        public Bar Bar{ get; set; }
+        [ForeignKey("Column")]
+        [Required]
+        public virtual Bar Bar{ get; set; }
     }
 }

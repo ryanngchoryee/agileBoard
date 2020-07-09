@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-
+    <Compile Remove="Migrations\20200709054720_DB_v2.cs" />
+    <Compile Remove="Migrations\20200709054720_DB_v2.Designer.cs" />
+    <Compile Remove="Migrations\20200709055314_DB_v2.cs" />
+    <Compile Remove="Migrations\20200709055314_DB_v2.Designer.cs" />
+    <Compile Remove="Migrations\20200709055835_DB_v2.cs" />
+    <Compile Remove="Migrations\20200709055835_DB_v2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,10 +25,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils" Version="3.1.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 
